@@ -3,7 +3,7 @@ import joblib
 import numpy as np
 
 app = Flask(__name__)
-model = joblib.load("titanic_model.pkl")
+model = joblib.load("titanic_rf_model.pkl")
 
 @app.route('/predict', methods=['POST'])
 def predict():

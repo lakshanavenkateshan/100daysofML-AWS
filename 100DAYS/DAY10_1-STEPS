@@ -1,0 +1,24 @@
+Steps :
+
+▫️Launch EC2 Instance
+Choose Ubuntu 22.04, t2.micro
+Open Security Group → add inbound rule for port 5000 (TCP)
+
+▫️Connect your EC2 (ssh)
+
+▫️Paste these commands:
+sudo apt update && sudo apt upgrade -y
+sudo apt install python3-pip -y
+pip3 install flask joblib scikit-learn numpy
+
+scp -i your-key.pem titanic_model.pkl app.py ubuntu@<ec2-ip>:/home/ubuntu/
+
+▫️create file named app.py and paste the app.py
+
+▫️python3 app.py
+
+▫️Test API
+curl -X POST http://<ec2-public-ip>:5000/predict -H "Content-Type: application/json" -d "{\"features\": [3, 1, 22, 0, 0, 7.25]}"
+
+▫️It should return:
+{"prediction": 0}

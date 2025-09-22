@@ -1,0 +1,91 @@
+🔹 Day 13 – Deploying Titanic ML Flask App on AWS ECS (Fargate)
+
+🔹 What I Did
+
+On Day 13, I deployed my Titanic Survival Prediction Flask API to AWS ECS (Fargate).
+This allows the containerized ML model to run in a serverless container service, removing the need to manage EC2 instances manually.
+
+🔹 Why I Did It
+
+Running via docker run on EC2 is fine for testing, but not scalable.
+
+ECS Fargate manages containers automatically → no manual container restarts.
+
+It provides auto-scaling, load balancing, and better production-grade deployment.
+
+Helps me learn real-world container orchestration with AWS.
+
+🔹 How I Did It
+1️⃣ Prepared Docker Image
+
+Trained Random Forest model → saved as titanic_rf_model.pkl
+
+Created app.py (Flask app with /predict endpoint)
+
+Created Dockerfile:
+
+FROM python:3.10-slim
+WORKDIR /app
+COPY app.py titanic_rf_model.pkl /app/
+RUN pip install --no-cache-dir flask joblib scikit-learn numpy
+EXPOSE 5000
+CMD ["python", "app.py"]
+
+
+Built image locally:
+
+docker build -t titanic-flask-app .
+
+
+Tagged & pushed to Amazon ECR:
+
+docker tag titanic-flask-app:latest <account_id>.dkr.ecr.ap-south-1.amazonaws.com/titanic-flask-app:latest
+docker push <account_id>.dkr.ecr.ap-south-1.amazonaws.com/titanic-flask-app:latest
+
+2️⃣ Created ECS Cluster
+
+Opened AWS ECS Console → Create Cluster
+
+Selected Fargate (Networking only)
+
+Named it: titanic-cluster
+
+3️⃣ Created Task Definition
+
+New Task Definition → Fargate launch type
+
+Named it: titanic-task
+
+Added container:
+
+Image: <ECR Image URI>
+
+Port: 5000
+
+CPU: 256, Memory: 512
+
+4️⃣ Deployed Service
+
+Created ECS Service in titanic-cluster
+
+Used titanic-task definition
+
+Chose Fargate launch type
+
+Enabled public IP
+
+Opened Security Group → allowed inbound traffic on port 5000
+
+5️⃣ Tested API
+
+Got Public IP from ECS task
+
+Sent prediction request:
+
+curl -X POST http://<ecs-public-ip>:5000/predict \
+-H "Content-Type: application/json" \
+-d "{\"features\": [3,1,22,0,0,7.25]}"
+
+
+🔹 Finally:
+Received prediction → 0 (did not survive)

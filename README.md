@@ -1,6 +1,6 @@
-#                                                        100 Days of Machine Learning + AWS Journey
+#                                                        100 Days of Machine Learning + AWS + DevOps Journey
 
-This repository contains my daily progress as I learn and practice **Machine Learning** while integrating with AWS step by step for 100 days.  
+This repository contains my daily progress as I learn and practice **Machine Learning** while integrating with AWS and DevOps step by step for 100 days.  
 Each day includes hands-on code, experiments, and notes.  
 
 ---

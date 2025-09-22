@@ -1,9 +1,9 @@
 🔹Day 8 — Breast Cancer (S3 + EC2 + Jupyter + Cloud Training)
 
-🔹What you did / goal
+🔹What I did / goal
 Run Jupyter on an EC2 instance, fetch the breast cancer dataset directly from S3, train a Random Forest on EC2 (bigger compute if needed), and upload the final model back to S3.
 
-🔹Why we do this
+🔹Why I do this
 
 Shows cloud compute (EC2) used for model training (scalable & repeatable).
 
@@ -33,7 +33,7 @@ Code: Refer DAY08.
 
 Do preprocessing & feature engineering (same approach as Day 6) and split train/test.
 
-Evaluate with accuracy, precision, recall, ROC-AUC. If you got ~96% earlier, mention it as your local/EC2 training result.
+Evaluate with accuracy, precision, recall, ROC-AUC.got ~96% earlier, mention it as local/EC2 training result.
 
 Code: Refer DAY08.
 
@@ -41,4 +41,4 @@ Train final Random Forest and save the model locally on EC2 (breast_cancer_rf_mo
 
 Code: Refer DAY08.
 
-(Optional) Download model to local machine or later use for deployment (Day 10/11/12 flow).
+Download model to local machine or later use for deployment (Day 10/11/12 flow).

@@ -1,12 +1,12 @@
 🔹 Day 9 — Breast Cancer (Colab + S3 + Training + Save Model)
 
-🔹 What you did / goal
+🔹 What I did / goal
 Run the entire ML pipeline on Google Colab, but keep the dataset and model fully in AWS S3.
 This combines free Colab compute with cloud data storage.
 
-🔹 Why We Did This
+🔹 Why I Did This
 
-Flexibility → Even if you don’t have EC2 running, you can still use Colab for ML.
+Flexibility → Even if I don’t have EC2 running, I can still use Colab for ML.
 
 Hybrid workflow → Dataset + model in AWS, training in Colab.
 
@@ -14,7 +14,7 @@ Skill practice → Using boto3 in Colab to access S3 directly.
 
 Consistency → Same workflow as Day 6/8, but now in Colab environment.
 
-🔹 Steps You Followed
+🔹 Steps I Followed
 
 Opened Google Colab.
 
@@ -50,7 +50,7 @@ Model trained on Colab compute.
 
 Metrics: Accuracy, precision, recall, ROC-AUC (depending on what you measured).
 
-✅ With this, you now have 3 different setups for ML training:
+✅ With this, now I have 3 different setups for ML training:
 
 Day 6 → Local + S3
 

@@ -1,0 +1,61 @@
+🔹 Day 9 — Breast Cancer (Colab + S3 + Training + Save Model)
+
+🔹 What you did / goal
+Run the entire ML pipeline on Google Colab, but keep the dataset and model fully in AWS S3.
+This combines free Colab compute with cloud data storage.
+
+🔹 Why We Did This
+
+Flexibility → Even if you don’t have EC2 running, you can still use Colab for ML.
+
+Hybrid workflow → Dataset + model in AWS, training in Colab.
+
+Skill practice → Using boto3 in Colab to access S3 directly.
+
+Consistency → Same workflow as Day 6/8, but now in Colab environment.
+
+🔹 Steps You Followed
+
+Opened Google Colab.
+
+Installed and configured AWS credentials (boto3, awscli) inside Colab.
+
+Downloaded breast cancer dataset from S3 into Colab using boto3.
+
+Code: Refer DAY09
+
+Preprocessed dataset (mapped malignant/benign, filled missing values, etc.).
+
+Code: Refer DAY09
+
+Trained Random Forest classifier on breast cancer dataset.
+
+Evaluated accuracy on test data (train/test split).
+
+Code: Refer DAY09
+
+Saved model as breast_cancer_rf_model.pkl with joblib.
+
+Uploaded trained model back to S3 using boto3.
+
+Code: Refer DAY09
+
+🔹 Deliverables
+
+Notebook: day09_breast_cancer_colab.ipynb
+
+Dataset & model remain in S3 (cloud storage).
+
+Model trained on Colab compute.
+
+Metrics: Accuracy, precision, recall, ROC-AUC (depending on what you measured).
+
+✅ With this, you now have 3 different setups for ML training:
+
+Day 6 → Local + S3
+
+Day 8 → EC2 + S3
+
+Day 9 → Colab + S3
+
+That’s a full hybrid cloud ML workflow!

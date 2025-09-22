@@ -1,0 +1,84 @@
+🔹Day 12 — Deploy Titanic ML Model via Docker + AWS ECR + EC2
+
+🔹What You Did / Goal
+
+Built a Docker image locally with your Flask ML API.
+
+Pushed the image to AWS ECR (Elastic Container Registry) → a cloud registry for Docker images.
+
+Pulled & ran the container on AWS EC2 → running your model in the cloud.
+
+Tested the API from your local machine → got live predictions.
+
+Basically, you made your ML app fully production-ready in the cloud, using industry-standard practices.
+
+🔹Why We Did This
+
+Cloud deployment practice → In real projects, ML models must run on cloud servers, not just locally.
+
+Versioned container images → ECR stores your Docker images safely and allows re-deployment anywhere.
+
+Scalable & repeatable workflow → Any EC2 instance can now pull your image and run it.
+
+Integration of ML + DevOps → You now know how to take a model from training → Docker → ECR → EC2 → API.
+
+🔹How We Did This (Step by Step)
+
+🔹Prepare folder
+
+app.py → Flask API
+
+titanic_rf_model.pkl → trained ML model
+
+Dockerfile → Docker image instructions
+Code: Refer DAY10
+
+🔹Build Docker image locally
+
+docker build -t titanic-flask-app .
+
+
+Image contains Python + Flask + your model + dependencies.
+
+🔹Test Docker image locally
+
+docker run -d -p 5000:5000 titanic-flask-app
+
+
+Ensure API works → use curl or Postman.
+
+🔹Push image to AWS ECR
+
+aws ecr get-login-password --region <region> | docker login --username AWS --password-stdin <account>.dkr.ecr.<region>.amazonaws.com
+docker tag titanic-flask-app:latest <account>.dkr.ecr.<region>.amazonaws.com/titanic-flask-app:latest
+docker push <account>.dkr.ecr.<region>.amazonaws.com/titanic-flask-app:latest
+
+
+Your image is now safely stored in AWS.
+
+🔹Pull & run on EC2
+
+docker pull <account>.dkr.ecr.<region>.amazonaws.com/titanic-flask-app:latest
+docker run -d -p 5000:5000 --restart unless-stopped <account>.dkr.ecr.<region>.amazonaws.com/titanic-flask-app:latest
+
+
+EC2 now serves the ML API.
+
+🔹Test from your local machine
+
+curl -X POST http://<EC2-IP>:5000/predict -H "Content-Type: application/json" -d "{\"features\": [3,1,22,0,0,7.25]}"
+
+
+Prediction returned → everything is live and working.
+
+🔹What You Learned
+
+How to containerize ML models for portability.
+
+How to use AWS ECR to store Docker images.
+
+How to deploy containers on EC2.
+
+How to access ML APIs from anywhere.
+
+This is a real production workflow used in industry — from local development to cloud deployment.

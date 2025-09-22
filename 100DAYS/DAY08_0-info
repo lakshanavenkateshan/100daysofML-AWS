@@ -1,0 +1,80 @@
+🔹 What Day 8 Was About
+
+Title: Full Cloud-Based ML Workflow (S3 + EC2 + Jupyter + ML Training)
+
+This day’s goal was to move away from local machine ML and instead:
+
+Store datasets in AWS S3
+
+Use EC2 instance as compute power
+
+Run Jupyter Notebook inside EC2 (browser-based coding, but running on cloud)
+
+Train ML model (Random Forest) using dataset from S3
+
+Save trained model (.pkl) back to S3
+
+This is the first complete end-to-end workflow in the cloud. 🚀
+
+🔹 Why We Did This
+
+Scalability → You’re no longer limited by your laptop’s RAM/CPU. EC2 can scale.
+
+Centralized data → Dataset is always fetched from S3, no “missing files” problem.
+
+Experiment tracking → You can repeat the same pipeline anytime by pulling data from S3.
+
+Foundation for MLOps → Training in the cloud is the base for automation + CI/CD later.
+
+🔹 How You Did This (Step by Step)
+
+Here’s the logical flow:
+
+1️⃣ Store Dataset in S3
+aws s3 cp titanic.csv s3://my-ml-bucket/
+
+2️⃣ Launch EC2 & Install Jupyter
+sudo apt update && sudo apt install python3-pip -y
+pip3 install notebook boto3 pandas scikit-learn joblib
+jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser
+
+
+(You then accessed Jupyter via your browser using EC2’s public IP + port 8888.)
+
+3️⃣ Fetch Data from S3 in Jupyter
+import boto3, pandas as pd
+
+s3 = boto3.client('s3')
+s3.download_file("my-ml-bucket", "titanic.csv", "titanic.csv")
+
+df = pd.read_csv("titanic.csv")
+df.head()
+
+4️⃣ Train Random Forest
+from sklearn.ensemble import RandomForestClassifier
+import joblib
+
+X = df[['Pclass','Sex','Age','Fare']].fillna(0)
+X['Sex'] = X['Sex'].map({'male':0,'female':1})
+y = df['Survived']
+
+model = RandomForestClassifier()
+model.fit(X, y)
+
+print("Accuracy:", model.score(X, y))  # ~96%
+joblib.dump(model, "titanic_rf_model.pkl")
+
+5️⃣ Save Model Back to S3
+s3.upload_file("titanic_rf_model.pkl", "my-ml-bucket", "titanic_rf_model.pkl")
+
+🔹 What You Achieved
+
+Dataset → Cloud (S3)
+
+Compute → Cloud (EC2)
+
+Training → Cloud Jupyter
+
+Model → Stored back in Cloud (S3)
+
+This means you now have a self-contained cloud ML environment.

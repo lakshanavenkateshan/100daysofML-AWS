@@ -1,80 +1,44 @@
-🔹 What Day 8 Was About
+🔹Day 8 — Breast Cancer (S3 + EC2 + Jupyter + Cloud Training)
 
-Title: Full Cloud-Based ML Workflow (S3 + EC2 + Jupyter + ML Training)
+🔹What you did / goal
+Run Jupyter on an EC2 instance, fetch the breast cancer dataset directly from S3, train a Random Forest on EC2 (bigger compute if needed), and upload the final model back to S3.
 
-This day’s goal was to move away from local machine ML and instead:
+🔹Why we do this
 
-Store datasets in AWS S3
+Shows cloud compute (EC2) used for model training (scalable & repeatable).
 
-Use EC2 instance as compute power
+Browser-based Jupyter gives full dev experience but runs on cloud.
 
-Run Jupyter Notebook inside EC2 (browser-based coding, but running on cloud)
+Keeps dataset & model in S3 → fully cloud-hosted ML workflow.
 
-Train ML model (Random Forest) using dataset from S3
+🔹Files / names (suggested)
 
-Save trained model (.pkl) back to S3
+Same S3 bucket: your-ml-bucket
 
-This is the first complete end-to-end workflow in the cloud. 🚀
+Notebook on EC2: day08_train_breast_cancer.ipynb
 
-🔹 Why We Did This
+Model saved: breast_cancer_rf_model.pkl (v2 if you updated)
 
-Scalability → You’re no longer limited by your laptop’s RAM/CPU. EC2 can scale.
+🔹High-level steps (no code here — see code reference)
 
-Centralized data → Dataset is always fetched from S3, no “missing files” problem.
+Launch EC2, open port for Jupyter (e.g., 8888) or tunnel via SSH.
 
-Experiment tracking → You can repeat the same pipeline anytime by pulling data from S3.
+Install Python, notebook, boto3, pandas, scikit-learn, joblib on EC2.
 
-Foundation for MLOps → Training in the cloud is the base for automation + CI/CD later.
+Start Jupyter Notebook on EC2 and open it in your browser.
 
-🔹 How You Did This (Step by Step)
+In notebook: download dataset from S3 (same as Day 6) and load into Pandas.
 
-Here’s the logical flow:
+Code: Refer DAY08.
 
-1️⃣ Store Dataset in S3
-aws s3 cp titanic.csv s3://my-ml-bucket/
+Do preprocessing & feature engineering (same approach as Day 6) and split train/test.
 
-2️⃣ Launch EC2 & Install Jupyter
-sudo apt update && sudo apt install python3-pip -y
-pip3 install notebook boto3 pandas scikit-learn joblib
-jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser
+Evaluate with accuracy, precision, recall, ROC-AUC. If you got ~96% earlier, mention it as your local/EC2 training result.
 
+Code: Refer DAY08.
 
-(You then accessed Jupyter via your browser using EC2’s public IP + port 8888.)
+Train final Random Forest and save the model locally on EC2 (breast_cancer_rf_model.pkl) then upload to S3.
 
-3️⃣ Fetch Data from S3 in Jupyter
-import boto3, pandas as pd
+Code: Refer DAY08.
 
-s3 = boto3.client('s3')
-s3.download_file("my-ml-bucket", "titanic.csv", "titanic.csv")
-
-df = pd.read_csv("titanic.csv")
-df.head()
-
-4️⃣ Train Random Forest
-from sklearn.ensemble import RandomForestClassifier
-import joblib
-
-X = df[['Pclass','Sex','Age','Fare']].fillna(0)
-X['Sex'] = X['Sex'].map({'male':0,'female':1})
-y = df['Survived']
-
-model = RandomForestClassifier()
-model.fit(X, y)
-
-print("Accuracy:", model.score(X, y))  # ~96%
-joblib.dump(model, "titanic_rf_model.pkl")
-
-5️⃣ Save Model Back to S3
-s3.upload_file("titanic_rf_model.pkl", "my-ml-bucket", "titanic_rf_model.pkl")
-
-🔹 What You Achieved
-
-Dataset → Cloud (S3)
-
-Compute → Cloud (EC2)
-
-Training → Cloud Jupyter
-
-Model → Stored back in Cloud (S3)
-
-This means you now have a self-contained cloud ML environment.
+(Optional) Download model to local machine or later use for deployment (Day 10/11/12 flow).

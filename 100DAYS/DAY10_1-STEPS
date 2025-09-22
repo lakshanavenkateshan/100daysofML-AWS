@@ -4,7 +4,7 @@ Steps :
 Choose Ubuntu 22.04, t2.micro
 Open Security Group → add inbound rule for port 5000 (TCP)
 
-▫️Connect your EC2 (ssh)
+▫️Connect EC2 (ssh)
 
 ▫️Paste these commands:
 sudo apt update && sudo apt upgrade -y

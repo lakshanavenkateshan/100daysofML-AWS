@@ -1,9 +1,9 @@
 🔹Day 6 — Breast Cancer (S3 ↔ ML)
 
-🔹What you did / goal
+🔹What I did / goal
 Move data → cloud, fetch it for training, do basic feature engineering, train a model locally and save the trained model back to S3.
 
-🔹Why we do this
+🔹Why I do this
 
 Centralize data (S3) so it’s shareable and reproducible.
 
@@ -11,7 +11,7 @@ Practice boto3 for real-world ML pipelines.
 
 Save models to S3 so they can be deployed later (EC2, Docker, etc.).
 
-Files / names
+🔹Files / names
 
 Dataset: refer datasets folder (data)
 
@@ -19,7 +19,7 @@ Local model file: breast_cancer_rf_model.pkl
 
 S3 bucket: your-ml-bucket (replace with yours)
 
-High-level steps (no code here — see code reference)
+🔹High-level steps
 
 Upload dataset to S3 (console or CLI).
 

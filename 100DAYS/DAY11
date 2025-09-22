@@ -1,8 +1,8 @@
 🔹Day 11 — Dockerized ML API on AWS EC2
 
-🔹What You Did / Goal
+🔹What I Did / Goal
 
-Took your Titanic ML model and wrapped it in a Flask API.
+Took my Titanic ML model and wrapped it in a Flask API.
 
 Made that API containerized using Docker.
 
@@ -10,9 +10,9 @@ Ran the Docker container on AWS EC2.
 
 Tested the API from your local PC using curl → got real predictions.
 
-Basically: you made a production-ready ML application running in the cloud.
+Basically: I made a production-ready ML application running in the cloud.
 
-🔹Why We Did This
+🔹Why I Did This
 
 Portability → Docker lets you run your API anywhere (local, EC2, other cloud) without environment issues.
 
@@ -22,7 +22,7 @@ Integration of ML + DevOps → You’re practicing a key skill: turning ML resea
 
 Repeatable workflow → Any ML model can now be wrapped in Docker and deployed the same way.
 
-🔹How We Did This (Step by Step)
+🔹How I Did This (Step by Step)
 
 ▫️Prepare your folder
 
@@ -32,7 +32,7 @@ titanic_rf_model.pkl → Trained model
 
 Dockerfile → Instructions to build Docker image
 
-Code: Refer DAY11
+Code: Refer DAY10
 
 ▫️Build Docker image locally or on EC2
 
@@ -51,9 +51,9 @@ This exposes port 5000 so the API can be accessed from outside EC2.
 curl -X POST http://<EC2-IP>:5000/predict -H "Content-Type: application/json" -d "{\"features\": [3,1,22,0,0,7.25]}"
 
 
-▫️You got a prediction → means container is running properly.
+▫️got a prediction → means container is running properly.
 
-🔹What You Learned
+🔹What I Learned
 
 How to wrap ML models in a Flask API.
 

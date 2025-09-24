@@ -1,0 +1,13 @@
+Day 15 – Monitoring EC2 and Docker Container
+
+Commands
+- List containers: `docker ps`
+- View logs: `docker logs <container_id>`
+- CPU & memory usage: `top` or `htop`
+- Free memory: `free -h`
+- Disk usage: `df -h`
+
+Outcome
+▫️Able to check ML API container logs  
+▫️Monitor EC2 resources (CPU, memory, disk)  
+▫️Ensured ML API is healthy

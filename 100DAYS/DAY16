@@ -1,0 +1,15 @@
+🔹Day 16 – Health Check for ML API
+
+🔹Steps
+
+1. SSH into EC2
+2. Create `health_check.sh` script to ping ML API
+3. Make it executable: `chmod +x health_check.sh`
+4. Run manually: `./health_check.sh`
+5. Optional: automate every 5 min with cron
+
+🔹Outcome
+
+▫️Simple automated health check for ML API container  
+▫️Logs API status to `health_check.log`  
+▫️Learned basic monitoring automation in DevOps

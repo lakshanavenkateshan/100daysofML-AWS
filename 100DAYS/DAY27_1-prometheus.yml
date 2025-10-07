@@ -1,0 +1,6 @@
+global:
+  scrape_interval: 5s
+scrape_configs:
+  - job_name: 'fashion-api'
+    static_configs:
+      - targets: ['fashionmnistapp-fashion-api-1:5000']

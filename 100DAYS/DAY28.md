@@ -23,7 +23,7 @@ Today I created **real-time dashboards** for my Dockerized Fashion-MNIST API!
 curl -X POST http://localhost:5000/predict \
   -H "Content-Type: application/json" \
   -d '{"features":[0,0,0,...,0]}'
-
+```
 ### Why I Did It
 
 To monitor API performance in real-time and quickly identify issues.
